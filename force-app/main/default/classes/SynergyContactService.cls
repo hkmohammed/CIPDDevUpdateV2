@@ -49,8 +49,14 @@ public WITHOUT SHARING class SynergyContactService {
         payload.put('title', newCon.Salutation);
         payload.put('firstName', newCon.FirstName);
         payload.put('lastName', newCon.LastName);
-        payload.put('preferredName', newCon.get('CTC_Preferred_name__c'));
+        
 
+        //Version 2 for Contact Update : https://app.asana.com/1/10038461291784/project/1213214258823947/task/1213755118024617
+        //24 March 2026
+        payload.put('jobTitle', newCon.Title);
+        payload.put('preferredName', newCon.get('CTC_Preferred_name__c'));
+        payload.put('gender', newCon.get('CTC_Gender__c'));
+        payload.put('dob', newCon.Birthdate != null ? String.valueOf(newCon.Birthdate) : null);
         // 4. ADDRESS OBJECTS: Forced full structure
         String prefAddr = (String)newCon.get('CTC_Default_Address__c');
         payload.put('homeAddress', mapFullAddress(newCon, 'Other', (prefAddr == 'Home Address'), 'ResidentialAddress.IsPreferred'));
